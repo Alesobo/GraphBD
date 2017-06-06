@@ -1,0 +1,59 @@
+CREATE (ee:Person {name:"Alexandra", surname:"Soboleva"})
+CREATE (ee:Person {name:"Darya", surname:"Terenteva", age:18})
+CREATE (ee:Song {title:"Sweater Weather", duration:233})
+CREATE (ee:Song {title:"Believer", duration:203})
+CREATE (ee:Song {title:"Thunder", duration:187})
+CREATE (ee:Song {title:"Herouse", duration:370})
+CREATE (ee:Performer {title:"The Neighbourhood", type:"group"})
+CREATE (ee:Performer {title:"Imagine Dragons", type:"group"})
+CREATE (ee:Performer {name:"David Bowie", type:"single singer"})
+
+MATCH (a:Person{name:"Alexandra"}),
+	(d:Person {name:"Darya"})
+MERGE (a)-[:KNOWS]->(d)
+
+MATCH (a:Person{name:"Alexandra"}),
+	(d:Person {name:"Darya"})
+MERGE (a)<-[:KNOWS]-(d)
+
+MATCH (a:Person{name:"Alexandra"}),
+	(sw:Song{title:"Sweater Weather"})
+MERGE (a)-[:LISTEN]->(sw)
+
+MATCH (a:Person{name:"Alexandra"}), 
+	(th:Song{title:"Thunder"}) 
+MERGE (a)-[:LISTEN]->(th)
+
+MATCH (a:Performer{title:"The Neighbourhood"}),
+ (h:Song{title:"Sweater Weather"})
+ MERGE (a)-[:SING {album:"I love you"}]->(h)
+
+MATCH (a:Person{name:"Alexandra"}),
+ (b:Song{title:"Believer"})
+ MERGE (a)-[:LISTEN]->(b)
+
+MATCH (a:Person{name:"Darya"}), 
+	(th:Song{title:"Thunder"}) 
+MERGE (a)-[:LISTEN]->(th)
+
+MATCH (a:Person{name:"Darya"}),
+ (b:Song{title:"Believer"})
+ MERGE (a)-[:LISTEN]->(b)
+
+MATCH (a:Person{name:"Darya"}),
+ (h:Song{title:"Herouse"})
+ MERGE (a)-[:LISTEN]->(h)
+
+MATCH (a:Performer{title:"Imagine Dragons"}),
+ (h:Song{title:"Believer"})
+ MERGE (a)-[:SING {album:"Evolve"}]->(h)
+
+MATCH (a:Performer{title:"Imagine Dragons"}),
+ (h:Song{title:"Thunder"})
+ MERGE (a)-[:SING {album:"Evolve"}]->(h)
+
+MATCH (a:Performer{name:"David Bowie"}),
+ (h:Song{title:"Herouse"})
+ MERGE (a)-[:SING {album:"Herouse"}]->(h)
+
+MATCH (n) RETURN n
