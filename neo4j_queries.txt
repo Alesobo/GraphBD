@@ -20,8 +20,10 @@ MATCH (a:Person{name:"Alexandra"}),
 	(sw:Song{title:"Sweater Weather"})
 MERGE (a)-[:LISTEN]->(sw)
 
-MATCH (a:Person{name:"Alexandra"}), 
-	(th:Song{title:"Thunder"}) 
+MATCH (a:Person{name:"Alexandra"}),
+ 
+	(th:Song{title:"Thunder"})
+ 
 MERGE (a)-[:LISTEN]->(th)
 
 MATCH (a:Performer{title:"The Neighbourhood"}),
@@ -32,8 +34,10 @@ MATCH (a:Person{name:"Alexandra"}),
  (b:Song{title:"Believer"})
  MERGE (a)-[:LISTEN]->(b)
 
-MATCH (a:Person{name:"Darya"}), 
-	(th:Song{title:"Thunder"}) 
+MATCH (a:Person{name:"Darya"}),
+ 
+	(th:Song{title:"Thunder"})
+ 
 MERGE (a)-[:LISTEN]->(th)
 
 MATCH (a:Person{name:"Darya"}),
@@ -57,3 +61,8 @@ MATCH (a:Performer{name:"David Bowie"}),
  MERGE (a)-[:SING {album:"Herouse"}]->(h)
 
 MATCH (n) RETURN n
+
+
+MATCH (a:Person)-[:KNOWS]->()-[:LISTEN]->(s:Song)
+WHERE a.name="Alexandra" AND NOT (s)<-[:LISTEN]-(a)
+RETURN s
